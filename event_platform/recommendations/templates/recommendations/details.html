@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h1 class="title">{{ object.title }}</h1>
+<h3 class="category">{{ object.category }}</h3>
+<h5 class="place">{{ object.city }}, {{ object.location }}</h5>
+<h5 class="text">Состоится {{ object.date }}</h5>
+<img class="img" width="600" src="{{ object.image.url }}" alt="Card image cap">
+<p class="text">{{ object.description | safe }}</p>
+{% if request.user.is_authenticated %}
+{% if object in request.user.participantprofile.events.all %}
+<h1 class="text">Вы зарегистрированы!</h1>
+{% else %}
+<a href="{% url 'reg' object.pk %}" class="reg">Зарегистрироваться</a>
+{% endif %}
+{% endif %}
+{% endblock %}

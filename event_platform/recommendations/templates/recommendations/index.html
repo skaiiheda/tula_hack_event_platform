@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h1>Досуг для тебя</h1>
+{% if objects %}
+<div class="card-group">
+    <div class="row">
+        {% for object in objects %}
+        <div class="col-md-4">
+            <div class="w-100 h-100 card">
+                <img class="card-img-top" src="{{ object.image.url }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ object.description | safe }}</p>
+                    <a href="{% url 'details' object.pk %}" class="card-link">Подробнее</a>
+                    <p class="card-text">Состоится {{ object.date }}</p>
+                    <p class="card-text">Регистрация до {{ object.end_reg }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
