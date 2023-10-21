@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+<div id="header">
+    <span class="logo">Закладки</span>
+    {% if request.user.is_authenticated %}
+    <ul class="menu">
+        <li>
+        <a href="{% url 'dashboard' %}">Мой личный кабинет</a>
+        </li>
+        <li>
+        <a href="#">Фотографии</a>
+        </li>
+        <li>
+        <a href="#">Люди</a>
+        </li>
+    </ul>
+    {% endif %}
+    <span class="user">
+ {% if request.user.is_authenticated %}
+ Hello {{ request.user.first_name|default:request.user.username }},
+ <a href="{% url 'logout' %}">Выход</a>
+        {% else %}
+ <a href="{% url 'login' %}">Вход</a>
+        {% endif %}
+ </span>
+</div>
+<div id="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
