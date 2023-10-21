@@ -1,26 +1,34 @@
 {% extends "base.html" %}
 {% block title %}Вход{% endblock %}
 {% block content %}
-<h1>Вход</h1>
-{% if form.errors %}
-<p>
-    Логин и пароль не подходят. Пожалуйста, попробуйте еще раз.
-</p>
-{% endif %}
-<p>Пожалуйста, используйте форму для входа в систему.
- Если у вас нет аккаунта:
- <a href="{% url 'register' %}">регистрация</a>.</p>
-<div class="login-form">
-    <form action="{% url 'login' %}" method="post">
+<div class="d-flex mt-4 flex-column justify-content-center align-items-center">
+    <h1>Вход</h1>
+    {% if form.errors %}
+    <p class="text-danger mb-4">
+        Логин и пароль не подходят. Пожалуйста, попробуйте еще раз.
+    </p>
+    {% endif %}
+    <p>Пожалуйста, используйте форму для входа в систему.
+    <p>Если у вас нет аккаунта: 
+        <a href="{% url 'register' %}" class="text-primary">регистрация</a>.
+    </p>
+    </p>
+</div>
+<div class="login-form d-flex justify-content-center align-items-center">
+    <form action="{% url 'login' %}"
+        style="max-width: 400px; margin: 0 auto; padding: 20px; background-color: #f3f3f3; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);"
+        method="post">
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}"/>
-        <p><input type="submit" value="Log-in"></p>
+        <input type="hidden" name="next" value="{{ next }}" />
+        <p style="margin-top: 10px;"><input type="submit" value="Войти"
+                style="background-color: #72AF6D; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; width: 100%;" />
+        </p>
+        <p>
+            <a href="{% url 'password_reset' %}">
+                Забыли пароль?
+            </a>
+        </p>
     </form>
-    <p>
-        <a href="{% url 'password_reset' %}">
-        Забыли пароль?
-        </a>
-    </p>
 </div>
 {% endblock %}

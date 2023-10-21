@@ -8,8 +8,8 @@
 <img class="img" width="600" src="{{ object.image.url }}" alt="Card image cap">
 <p class="text">{{ object.description | safe }}</p>
 {% if request.user.is_authenticated %}
-{% if object in request.user.participantprofile.events.all %}
-<h1 class="text">Вы зарегистрированы!</h1>
+{% if object in request.user.profile.events.all %}
+<p class="text">Вы зарегистрированы!</p>
 {% else %}
 <a href="{% url 'reg' object.pk %}" class="reg">Зарегистрироваться</a>
 {% endif %}

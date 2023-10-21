@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Личный кабинет{% endblock %}
 {% block content %}
+
 <h1>Досуг для тебя</h1>
+<div style="width: 100%; height: 400px; margin-bottom: 15px;" id="yamap"> </div>
+
 {% if objects %}
 <div class="card-group">
     <div class="row">
@@ -15,6 +18,10 @@
                     <a href="{% url 'details' object.pk %}" class="card-link">Подробнее</a>
                     <p class="card-text">Состоится {{ object.date }}</p>
                     <p class="card-text">Регистрация до {{ object.end_reg }}</p>
+                    <p>Офис 1</p>
+                    <p>Адрес: Село Жемковка</p>
+                    <button class="open-map" style=" margin-top: 10px; background-color: #72AF6D; 
+                    color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; width: 100%;" data-coord="[53.193980411861844, 50.2090119236439]">Посмотреть на карте</button>
                 </div>
             </div>
         </div>
