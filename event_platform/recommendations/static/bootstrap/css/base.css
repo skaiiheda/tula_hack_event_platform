@@ -1,0 +1,137 @@
+.nav-logo-p{
+	width:135px;
+	height:18px;
+  left:250px;
+  top:px;
+	position:absolute;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+}
+.nav-logo{
+color:rgba(0, 0, 0, 1);
+text-decoration: none;}
+.nav-index-p{
+	width:135px;
+	height:18px;
+  left:430px;
+	position:absolute;
+	top:;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+}
+.nav-index{
+color:rgba(0, 0, 0, 1);
+text-decoration: none;
+}
+.nav-event-p{
+	color:rgba(0, 0, 0, 1);
+	width:135px;
+	height:18px;
+  left:550px;
+	position:absolute;
+	top:;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+  text-decoration: none;
+}
+.nav-event{
+  color:rgba(0, 0, 0, 1);
+  text-decoration: none;
+}
+.nav-enter-p{
+	width:50px;
+	height:30px;
+  right:399px;
+	position:absolute;
+	top:px;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+  border:2px solid black;
+  border-radius:55px;
+}
+.nav-enter{
+  color:rgba(0, 0, 0, 1);
+  text-decoration: none;}
+.nav-reg-p{
+	color:rgba(0, 0, 0, 1);
+	width:130px;
+	height:30px;
+  right:250px;
+	position:absolute;
+	top:px;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+  text-decoration: none;
+  border:2px solid black;
+  border-radius:55px;
+}
+.nav-reg{
+  color:rgba(0, 0, 0, 1);
+  text-decoration: none;}
+.nav-exit-p{
+	color:rgba(0, 0, 0, 1);
+	width:70px;
+	height:30px;
+  right:250px;
+	position:absolute;
+	top:px;
+	font-family:Montserrat;
+	text-align:center;
+	font-size:20px;
+  text-decoration: none;
+  border:2px solid black;
+  border-radius:55px;
+}
+.nav-exit{
+color:rgba(0, 0, 0, 1);
+  text-decoration: none;
+}
+
+
+.nav-chat-star {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+    background: #72AF6D;
+    position: fixed;
+    transform: rotate(20deg);
+    border-radius:12px;
+    }
+.nav-chat-star:before {
+    content: "";
+    height: 80px;
+    width: 80px;
+    background: inherit;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: rotate(135deg);
+    border-radius:12px;
+    }
+.nav-chat {
+      top: 250px;
+      left: 300px;
+        border:3px solid #000;
+    border-top-right-radius:120%;
+    border-top-left-radius:120%;
+    border-bottom-right-radius:120%;
+        border-radius:;
+        height:10px;
+        width:20px;
+        padding:20px;
+        position:relative;
+    }
+.nav-chat-img{
+      transform: translate(-2050px,-2030px);
+      scale:10%;
+    }
+.nav-img-and-star{
+      position:fixed;
+      top:80%;
+      left:85%;
+    }

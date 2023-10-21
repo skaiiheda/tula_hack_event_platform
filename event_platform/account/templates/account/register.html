@@ -3,6 +3,19 @@
 {% block content %}
 <div class="d-flex mt-4 flex-column justify-content-center align-items-center">
     <h1>Создать аккаунт</h1>
+
+    <p>Регистрация
+        {%if user == 'participant'%}
+        <a style="display: inline;" href="{% url 'organizer_register' %}">
+            для организатора
+        </a>
+        {%else%}
+        <a style="display: inline;" href="{% url 'participant_register' %}">
+            для участника
+        </a>
+        {%endif%}
+    </p>
+
     <p>Пожалуйста, заполните форму:</p>
 </div>
 <div class="login-form d-flex justify-content-center align-items-center">
