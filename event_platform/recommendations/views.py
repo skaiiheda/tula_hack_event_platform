@@ -1,3 +1,4 @@
+from django.forms import TextInput
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import ListView
@@ -88,6 +89,12 @@ class EventDetailView(DetailView):
 class EventCreateView(CreateView):
     model = Events
     fields = ['title', 'city', 'location', 'date', 'end_reg', 'categories', 'description', 'image', 'organizer']
+    template_name = 'recommendations/create-event.html'
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['organizer'].widget = TextInput(attrs={'style': 'display: none;', 'value': self.request.user.organizerprofile.organization})
+        return form
 
 
 class EventUpdateView(UpdateView):
