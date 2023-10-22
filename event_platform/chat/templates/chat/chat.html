@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Чат-бот
+{% endblock %}
+{% block content %}
+<h3>Напишите сообщение</h3>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" class="form-control" name="prompt">
+    <button type="submit" class="btn btn-primary mt-3">Отправить</button>
+</form>
+{% if history %}
+{% for response in history %}
+    <div>
+        {% if response.author == 'user' %}
+        Вы написали {{ response.sent }}:
+        {% else %}
+        Бот ответил {{ response.sent }}:
+        {% endif %}
+    </div>
+    <div>
+        {{ response.text|safe }}
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}

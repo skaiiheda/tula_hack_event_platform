@@ -54,13 +54,14 @@ def participant_register(request):
             profile_form.save()
             return render(request,
                           'account/register_done.html',
-                          {'new_user': new_user})
+                          {'new_user': new_user,"user": "participant"})
     else:
         user_form = UserEditForm()
         profile_form = ParticipantProfileEditForm()
     return render(request,
                   'account/register.html',
-                  {'user_form': user_form,
+                  {"user": "participant",
+                    'user_form': user_form,
                    'profile_form': profile_form})
 
 
@@ -83,14 +84,14 @@ def organizer_register(request):
             profile_form.save()
             return render(request,
                           'account/register_done.html',
-                          {'new_user': new_user})
+                          {'new_user': new_user, "user": "organizer",})
     else:
         user_form = UserEditForm()
         profile_form = OrganizerProfileEditForm()
     return render(request,
                   'account/register.html',
                   {'user_form': user_form,
-                   'profile_form': profile_form})
+                   'profile_form': profile_form, "user": "organizer",})
 
 
 @login_required

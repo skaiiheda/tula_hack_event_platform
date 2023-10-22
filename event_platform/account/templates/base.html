@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
@@ -7,40 +8,89 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/base.css' %}">
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=18b69d73-0472-4462-b4e4-802de45b4d7a&lang=ru_RU"
+        type="text/javascript"> </script>
+    <script type="text/javascript">
+        ymaps.ready(function () {
+            var myMap = new ymaps.Map('yamap', {
+                center: [54.20478702074404, 37.619193898054085],
+                zoom: 11
+            }, {
+                searchControlProvider: 'yandex#search'
+            }),
+                MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
+                    '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
+                ),
+                myPlacemarkWithContent_1 = new ymaps.Placemark([53.193980411861844, 50.2090119236439], {
+                    hintContent: 'Офис 1',
+                    balloonContent: 'г. Минск, ул. Лазо, 16'
+                }, {
+                    iconLayout: 'default#imageWithContent',
+                    iconImageHref: 'https://cdn.icon-icons.com/icons2/2044/PNG/64/maps_logo_map_marker_icon_124343.png',
+                    iconImageSize: [50, 50],
+                    iconImageOffset: [-25, -50],
+                    iconContentOffset: [15, 15],
+                    iconContentLayout: MyIconContentLayout
+                });
+            myMap.geoObjects.add(myPlacemarkWithContent_1)
+            jQuery('.open-map').click(function () {
+                var loc = jQuery(this).attr('data-coord');
+                loc = JSON.parse(loc);
+                myMap.setZoom(16, { smooth: true, centering: true });
+                myMap.panTo(loc);
+                document.getElementById('yamap').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                })
+            });
+        });
+    </script>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="p-4 mb-2 bg-f3f3f3 text-black">
-        <ul class="navbar-nav mr-auto">
-            <div class="nav-logo-p">
-                <a class="nav-logo" href="/"><b>EasyGetAway</b></a></div>
-            <div class="nav-index-p">
-                <a class="nav-index" href="/">главная</a></div>
-            <div class="nav-event-p">
-                <a class="nav-event" href="/">мероприятия</a></div>
-            {% if request.user.is_authenticated %}
-            <div class="nav-exit-p">
-                <a class="nav-exit" href="{% url 'logout' %}">выход</a></div>
-            {% else %}
-            <div class="nav-enter-p">
-                <a class="nav-enter" href="{% url 'login' %}">вход</a></div>
-            <div class="nav-reg-p">
-                <a class="nav-reg" href="#">регистрация</a></div>
-            {% endif %}
-        </ul>
-        <div class="nav-img-and-star">
-            <div class="nav-chat-star"></div>
-            <div class="nav-chat-img-p">
-                <a href="{% url 'chatbot' %}">
-                    <img class="nav-chat-img"
-                         src="https://cdn.icon-icons.com/icons2/1302/PNG/512/chatspeechballoon_85812.png"></a>
-            </div>
-            </div>
-        </div>
-</nav>
-<div>
-                {% block content %}
-                {% endblock %}
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #72AF6D;">
+        <div class="p-3 mb-2 bg-f3f3f3 text-black">
+            <ul class="navbar-nav mr-auto d-flex align-items-center">
+                <div class="nav-logo ml-auto">
+                    <a class="nav-logo" href="/">
+                        <span><b>EasyGetAway</b></span>
+                    </a>
+                </div>
+                <div class="nav-index-p">
+                    <a class="nav-index" href="/">
+                        <span>Главная</span>
+                    </a>
+                </div>
+                <div class="nav-event-p">
+                    <a class="nav-event" href="/">
+                        <span>Мероприятия</span>
+                    </a>
+                </div>
+                {% if request.user.is_authenticated %}
+                <div class="nav-exit-p">
+                    <a class="nav-exit" href="{% url 'logout' %}">
+                        <span>Выход</span>
+                    </a>
+                </div>
+                {% else %}
+                <div class="nav-enter-p">
+                    <a class="nav-enter" href="{% url 'login' %}">
+                        <span>Вход</span>
+                    </a>
+                </div>
+                <div class="nav-reg-p">
+                    <a class="nav-reg" href="{% url 'participant_register' %}">
+                        <span>Регистрация</span>
+                    </a>
+                </div>
+                {% endif %}
+            </ul>
+    </nav>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
 </body>
+
 </html>
