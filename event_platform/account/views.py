@@ -1,7 +1,9 @@
+from django.contrib.auth.views import LogoutView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 from .forms import LoginForm, UserRegistrationForm, UserEditForm, ParticipantProfileEditForm, OrganizerProfileEditForm
 from .models import ParticipantProfile, OrganizerProfile
@@ -35,9 +37,13 @@ def user_login(request):
         return render(request, 'account/login.html', {'form': form})
 
 
+class LogoutView(LogoutView):
+    next_page = reverse_lazy('index')
+
+
 def participant_register(request):
     if request.method == 'POST':
-        user_form = UserEditForm(data=request.POST)
+        user_form = UserRegistrationForm(data=request.POST)
         profile_form = ParticipantProfileEditForm(
             data=request.POST,
             files=request.FILES)
@@ -50,13 +56,15 @@ def participant_register(request):
                 user_form.cleaned_data['password'])
             # Сохранить объект User
             new_user.save()
-            ParticipantProfile.objects.create(user=new_user)
-            profile_form.save()
+            categories = profile_form.cleaned_data.pop('categories')
+            profile = ParticipantProfile.objects.create(user=new_user, **profile_form.cleaned_data)
+            profile.categories.set(categories)
+            # profile_form.save()
             return render(request,
                           'account/register_done.html',
                           {'new_user': new_user,"user": "participant"})
     else:
-        user_form = UserEditForm()
+        user_form = UserRegistrationForm()
         profile_form = ParticipantProfileEditForm()
     return render(request,
                   'account/register.html',
