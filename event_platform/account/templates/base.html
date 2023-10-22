@@ -9,58 +9,36 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/base.css' %}">
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script
-        src="https://api-maps.yandex.ru/2.1/?apikey=18b69d73-0472-4462-b4e4-802de45b4d7a&lang=ru_RU"
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=18b69d73-0472-4462-b4e4-802de45b4d7a&lang=ru_RU"
         type="text/javascript"> </script>
     <script type="text/javascript">
         ymaps.ready(function () {
-            // yamap - ID блока, в котором инициализируется карта
             var myMap = new ymaps.Map('yamap', {
-                //Берём центр РБ
                 center: [54.20478702074404, 37.619193898054085],
                 zoom: 11
             }, {
                 searchControlProvider: 'yandex#search'
             }),
-                // Создаём макет содержимого.
                 MyIconContentLayout = ymaps.templateLayoutFactory.createClass(
                     '<div style="color: #FFFFFF; font-weight: bold;">$[properties.iconContent]</div>'
                 ),
-                //Добавляем маркеры офисов указывая их координаты
                 myPlacemarkWithContent_1 = new ymaps.Placemark([53.193980411861844, 50.2090119236439], {
-                    //Текст при наведении на метку
                     hintContent: 'Офис 1',
-                    //Текст при нажатии на метку
                     balloonContent: 'г. Минск, ул. Лазо, 16'
                 }, {
-                    // Опции.
-                    // Необходимо указать данный тип макета.
                     iconLayout: 'default#imageWithContent',
-                    // Своё изображение иконки метки.
-                    //Метка имеет размер 150х150 - квадрат
                     iconImageHref: 'https://cdn.icon-icons.com/icons2/2044/PNG/64/maps_logo_map_marker_icon_124343.png',
-                    // Размеры метки.
                     iconImageSize: [50, 50],
-                    // Смещение левого верхнего угла иконки относительно
-                    // её "ножки" (точки привязки).
                     iconImageOffset: [-25, -50],
-                    // Смещение слоя с содержимым относительно слоя с картинкой.
                     iconContentOffset: [15, 15],
-                    // Макет содержимого.
                     iconContentLayout: MyIconContentLayout
                 });
-            //Добавляем маркеры на карту
             myMap.geoObjects.add(myPlacemarkWithContent_1)
-            //Обрабатываем клик по кнопке
             jQuery('.open-map').click(function () {
-                //Забираем координаты из кнопки
                 var loc = jQuery(this).attr('data-coord');
                 loc = JSON.parse(loc);
-                //Увеличиваем карту до нужного размера
                 myMap.setZoom(16, { smooth: true, centering: true });
-                //Перемещаем карту к нужной метке
                 myMap.panTo(loc);
-                //Плавная прокрутка до блока с картой
                 document.getElementById('yamap').scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
@@ -108,17 +86,6 @@
                 </div>
                 {% endif %}
             </ul>
-    </nav>
-    <div class="nav-img-and-star" style="z-index: 999;">
-        <div class="nav-chat-star">
-        </div>
-        <div class="nav-chat-img-p">
-            <a href="{% url 'chatbot' %}">
-                <img class="nav-chat-img"
-                    src="https://cdn.icon-icons.com/icons2/1302/PNG/512/chatspeechballoon_85812.png"></a>
-        </div>
-    </div>
-    </div>
     </nav>
     <div>
         {% block content %}

@@ -1,26 +1,40 @@
 {% extends "base.html" %}
 {% block title %}Личный кабинет{% endblock %}
 {% block content %}
-
-<h1>Досуг для тебя</h1>
+<h1 style="text-align: center; margin: 15px 0 20px 0;">Досуг для тебя</h1>
+<div style="margin-left: 10%; margin-bottom: 15px; font-size: 16px;">Наш сервис поможет быстро подобрать мероприятия для
+    отдыха в городе. </div>
+<div style="margin-left: 10%; margin-bottom: 15px; font-size: 16px;">Мы сотрудничаем с лучшими
+    организаторами и предоставляем актуальную информацию.</div>
 <div style="width: 80%; height: 400px; margin-bottom: 15px; margin-left: auto; margin-right: auto;" id="yamap"> </div>
 {% if user.organizerprofile %}
-<a href="{% url 'event_create' %}" class="create"><button style="margin-top: 5px; background-color: #0140ff;
-color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">Добавить мероприятие</button></a>
+<button style="margin-top: 5px; margin-left: auto; margin-right: auto; background-color: #0140ff; 
+color: white; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%;">Добавить мероприятие</button>
 {%endif%}
 {% if objects %}
 <div class="card-group">
     {% for object in objects %}
     <div class="col-md-4">
         <div class="w-100 h-100 card">
-            <img class="card-img-top" src="{{ object.image.url }}" alt="Card image cap">
+            <img class="card-img-top" style="width: 450px; height: 450px;" src="{{ object.image.url }}"
+                alt="Card image cap">
             <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-text">{{ object.description | safe }}</p>
-                <a href="{% url 'details' object.pk %}" class="card-link">Подробнее</a>
+                <h5 class="card-title">{{ object.title }}</h5>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                    <a href="{% url 'details' object.pk %}" style="justify-content: center;" class="card-link">Подробнее
+                        о мероприятии...</a>
+                    {%if object.organizer == user.organizerprofile %}
+                    <a href="{% url 'delete' object.pk %}">
+                        <img src="https://cdn.icon-icons.com/icons2/1893/PNG/64/dustbin_120823.png"
+                            style="width:16px; height:16px" alt="rubbish">
+                    </a>
+                    {% endif %}
+                </div>
                 <p class="card-text">Состоится {{ object.date }}</p>
                 <p class="card-text">Регистрация до {{ object.end_reg }}</p>
-                <button class="open-map" style=" margin-top: 10px; background-color: #72AF6D; 
+                <p>Офис 1</p>
+                <p>Адрес: Село Жемковка</p>
+                <button class="open-map" style=" margin-top: 10px; margin-left: auto; margin-right: auto;background-color: #72AF6D; 
                     color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; width: 100%;"
                     data-coord="[53.193980411861844, 50.2090119236439]">Посмотреть на карте</button>
             </div>

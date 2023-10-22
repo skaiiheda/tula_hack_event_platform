@@ -1,17 +1,37 @@
 {% extends "base.html" %}
+{% load filters %}
 {% block title %}Личный кабинет{% endblock %}
 {% block content %}
-<h1 class="title">{{ object.title }}</h1>
-<h3 class="category">{{ object.category }}</h3>
-<h5 class="place">{{ object.city }}, {{ object.location }}</h5>
-<h5 class="text">Состоится {{ object.date }}</h5>
-<img class="img" width="600" src="{{ object.image.url }}" alt="Card image cap">
-<p class="text">{{ object.description | safe }}</p>
-{% if request.user.is_authenticated %}
-{% if object in request.user.profile.events.all %}
-<p class="text">Вы зарегистрированы!</p>
-{% else %}
-<a href="{% url 'reg' object.pk %}" class="reg">Зарегистрироваться</a>
-{% endif %}
-{% endif %}
+<div style="text-align: center; margin-top: 10px;">
+    <h1 class="title">{{ object.title }}</h1>
+    <h3 class="category">{{ object.category }}</h3>
+    <h5 class="place"> Место проведения мероприятия: {{ object.city }}, {{ object.location }}</h5>
+    <h5 class="text">Состоится {{ object.date }}</h5>
+    <img class="img" width="450" height="450px" src="{{ object.image.url }}" alt="Card image cap">
+    <h3>Описание мероприятия</h3>
+    <p class="text"> {{ object.description | safe }}</p>
+    {% if request.user.is_authenticated %}
+    {% if object in request.user.participantprofile.events.all %}
+    <a style="margin:10px, auto, 20px, auto;">
+        <button disabled class="text"
+        style="margin-bottom: 20px; background-color: #f3f3f3; padding: 10px 20px; border-radius: 5px; border: none; width: 50%;">
+            Вы записаны на это мероприятие!</button>
+    </a>
+    {% elif not object.end_reg|expired %}
+    <a style="margin:10px, auto, 20px, auto;" href="{% url 'reg' object.pk %}" class="reg">
+        <button
+            style="margin-bottom: 20px; background-color: #72AF6D; color: white; padding: 10px 20px; border-radius: 5px; border: none; cursor: pointer; width: 50%;">
+            Записаться на мероприятие
+        </button>
+    </a>
+    {% else %}
+    <a style="text-align: center;" href="{% url 'reg' object.pk %}" class="reg">
+        <button disabled
+            style=" text-align: center; margin-bottom: 20px; background-color: #f3f3f3; padding: 10px 20px; border-radius: 5px; border: none; width: 50%;">
+            Запись на мероприятие закрыта
+        </button>
+    </a>
+    {% endif %}
+    {% endif %}
+</div>
 {% endblock %}
