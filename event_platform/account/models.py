@@ -12,6 +12,9 @@ class ParticipantProfile(models.Model):
     photo = models.ImageField(upload_to='users/%Y/%m/%d/',
                               blank=True)
 
+    def __str__(self):
+        return f'{self.user.first_name}'
+
 
 class OrganizerProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
