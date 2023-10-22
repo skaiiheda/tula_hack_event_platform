@@ -25,6 +25,9 @@ class Events(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='events/images')
     organizer = models.ForeignKey(OrganizerProfile, on_delete=models.SET_NULL, to_field='organization', null=True)
+    adress = models.CharField(max_length=200)
+    latitude = models.FloatField()
+    longtitude = models.FloatField()
 
 
 class Category(models.Model):

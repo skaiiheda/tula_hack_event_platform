@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'chat.apps.ChatConfig',
     'recommendations.apps.RecommendationsConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
